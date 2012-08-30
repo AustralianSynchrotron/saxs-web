@@ -13,7 +13,7 @@ Url: https://github.com/AustralianSynchrotron
 Requires: httpd
 Requires: mod_wsgi
 Requires: mod_ssl
-Requires: django
+Requires: Django
 Requires: numpy
 Requires: python-matplotlib
 Requires: libjpeg-devel
