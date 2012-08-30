@@ -21,11 +21,10 @@ config_file = os.path.join(config_path, file_name)
 config = ConfigParser.RawConfigParser()
 config.read(config_file)
 
-# matplotlib module configuration                               
-MATPLOTLIB_HOME = os.path.abspath(os.path.dirname(__file__)).replace('\\', '/')
-
-
 try:
+
+    # matplotlib module configuration                               
+    MATPLOTLIB_HOME = config.get('data','MATPLOTLIB_HOME')
     
     # Data path
     PROFILE_HOME = config.get('data','PROFILE_HOME')
