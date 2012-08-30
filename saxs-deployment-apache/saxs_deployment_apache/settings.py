@@ -21,7 +21,15 @@ config_file = os.path.join(config_path, file_name)
 config = ConfigParser.RawConfigParser()
 config.read(config_file)
 
+# matplotlib module configuration                               
+MATPLOTLIB_HOME = os.path.abspath(os.path.dirname(__file__)).replace('\\', '/')
+
+
 try:
+    
+    # Data path
+    PROFILE_HOME = config.getboolean('data','PROFILE_HOME')
+
     DEBUG = config.getboolean('debug','DEBUG')
     
     DATABASES = {
