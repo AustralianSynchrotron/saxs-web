@@ -28,7 +28,7 @@ MATPLOTLIB_HOME = os.path.abspath(os.path.dirname(__file__)).replace('\\', '/')
 try:
     
     # Data path
-    PROFILE_HOME = config.getboolean('data','PROFILE_HOME')
+    PROFILE_HOME = config.get('data','PROFILE_HOME')
 
     DEBUG = config.getboolean('debug','DEBUG')
     
