@@ -1,0 +1,101 @@
+{% extends "multi_table_custom.html" %}
+
+{% block css_extra %}
+{{ block.super }} 
+<style title="currentStyle" type="text/css">
+.board {
+  border:1px solid #AAAAAA;
+  padding:0.2em;
+  -moz-border-radius:4px 4px 4px 4px;
+}
+.clear {
+  clear:both;
+  font-size:1px;
+  line-height:1px;
+  padding-top:10px;
+}
+</style>
+{% endblock %}
+
+{% block more-script %}
+
+function changeEPN(event) {
+    var epn = document.getElementById('epns').value;
+    location.href = "/analysis/avg_sub_images/"+epn;    
+//    {% for exp, alias in tabs %}
+//    $('#table_{{ exp }}').dataTable().fnReloadAjax("/analysis/avg_sub_images/"+epn+"/{{ exp }}/json");
+//    {% endfor %}
+}
+{% endblock more-script %}
+
+{% block more-doc-ready %}
+    var epn = document.getElementById('epns').value;
+{% endblock more-doc-ready %}
+
+{% block table-init %}
+    {% for exp, alias in tabs %}
+    var oTable_{{ exp }} = $('#table_{{ exp }}').dataTable( 
+        { "bJQueryUI": true,
+          "bPaginate": false,
+          "bAutoWidth" : false,
+          "bProcessing": true,
+          "sDom": '<"toolbar_{{ exp }}"><"H"lfr>t<"F"ip>',
+          "aoColumnDefs": [ 
+            { "aTargets": [ 1 ], "fnRender": function ( oObj ) { var button = '<button type="button" style="color:#0C6DFF;" onclick="window.open(\'/analysis/plot_profile/' + oObj.aData[oObj.iDataColumn] + '/\');">VIEW</button>'; return button; } },
+          ]
+
+        });
+    oTable_{{ exp }}.fnReloadAjax("/analysis/avg_sub_images/"+epn+"/{{ exp }}/json");
+    
+    {% endfor %} 
+{% endblock table-init %}
+
+{% block content %}
+<div id="filters" class="board">
+  <div style='padding: 5px 0 5px 5px;'>
+    <!-- EPN selector -->
+    <strong>EPN:</strong>
+    <select id="epns" onchange="changeEPN(event);" style="margin-left: 0.5em;">
+      <option value="-1" disabled="disabled">--SELECT an EPN--</option>
+      {% for epn in epns %}
+        {% if epn == this_epn %}
+        <option value="{{ epn }}" selected="selected">{{ epn }}</option>
+        {% else %}
+        <option value="{{ epn }}">{{ epn }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<p style="color: #999999;font-size: 10px !important;line-height: 1.5em; margin: 0px;">
+Note: Sorting by multiple columns at the same time can be activated by '<b>shift</b>' clicking on the column headers which they want to add to the sort.
+&nbsp Hovering mouse over the column headers to get descriptions of table columns. 
+</p>
+<div id="tabs">
+  <ul>
+    {% for exp, alias in tabs %}
+     <li><a href="#tabs_{{ exp }}">{{ alias }}</a></li>
+    {% endfor %} 
+  </ul>
+  {% for exp, alias in tabs %}
+  <div id="tabs_{{ exp }}">
+    <table cellpadding="0" cellspacing="1" border="0" class="display" id="table_{{ exp }}">
+      <thead>
+      <tr>
+        <th align="center">Image Name</th>
+        <th align="center" title="Click the VIEW button to observe the SAXS profile.">Profile</th>
+        <th align="center">POROD Volume</th>
+        <th align="center">DAM Volume</th>
+        <th align="center" title="Click the VIEW button to view PDB file in GLmol 3D molecular viewer.">PDB</th>
+      </tr>
+      </thead>
+
+    </table>
+  </div>
+  {% endfor %} 
+</div>
+{% endblock content %}
+

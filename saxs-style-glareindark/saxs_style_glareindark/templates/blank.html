@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+    <title>{% block title %}Blank Site{% endblock title %}</title>
+    {% block css_extra %}{% endblock css_extra %}
+    
+    {% block script_jquery %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    {% endblock script_jquery %}
+    
+    {% block script_extra %}{% endblock script_extra %}
+</head>
+
+<body {% block bodyparams %}{% endblock bodyparams %}>
+{% block content %}{% endblock content %}
+</body>
+</html>
+

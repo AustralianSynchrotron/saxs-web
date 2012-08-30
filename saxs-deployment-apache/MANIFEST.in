@@ -1,0 +1,3 @@
+include apache/*
+include config/*
+include manage.py

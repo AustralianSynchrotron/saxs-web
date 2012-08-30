@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+{% comment %}
+    Requried variables passed from the view which renders this template:
+    1. topnav_highlight: 
+       * data type: python dictionary
+       * data structure:
+         topnav_highlight = { "app_title":  "Application title",
+                              "app_id":     "Application unique id",
+                              "view_title": "View title",
+                              "view_id":    "View unique id",
+                             }
+{% endcomment %}
+
+{% load i18n %}
+{% load topnav_tags %}
+
+<!-- BLOCK/title=BEGIN -->
+<title>
+    {% block title %} 
+    SAXS > {{ topnav_highlight.app_title|default:"Glareindark Base Template" }}{% if topnav_highlight.view_title %} > {{ topnav_highlight.view_title }}{% endif %}
+    {% endblock title %}
+</title>
+<!-- BLOCK/title=END -->
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<!-- BLOCK/icon=BEGIN -->
+{% block icon %}
+<link href="/media/style/glareindark/img/saxs_logo.png" type="image/png" rel="icon">
+{% endblock icon %}
+<!-- BLOCK/icon=END -->
+
+<!-- BLOCK/css_base=BEGIN -->
+{% block css_base %}
+<style type="text/css">
+    @import "/media/style/glareindark/css/base.css";
+    @import "/media/style/glareindark/css/dropdown.menu.css"; 
+    {% get_topnav_style %}
+</style>
+{% endblock css_base %}
+<!-- BLOCK/css_base=END -->
+
+
+<!-- BLOCK/css_extra=BEGIN -->
+{% block css_extra %}
+{% endblock css_extra %}
+<!-- BLOCK/css_extra=END -->
+
+<!-- BLOCK/script_jquery=BEGIN -->
+{% block script_jquery %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+{% endblock script_jquery %}
+<!-- BLOCK/script_jquery=END -->
+
+
+<!-- BLOCK/script_extra=BEGIN -->
+{% block script_extra %}
+{% endblock script_extra %}
+<!-- BLOCK/script_extra=END -->
+
+</head>
+
+<body {% block bodyparams %} class="{{ topnav_highlight.view_id|default:'view_id' }}" {% endblock bodyparams %}>
+<div id="outer">
+  
+    <!-- BLOCK/header=BEGIN -->
+    <div id="header">
+        {% block header %}
+        <h1>
+            <a href="">SAXS/WAXS</a>
+        </h1>
+        <h2>
+            {{ topnav_highlight.app_title|default:"Glareindark Base Template" }}{% if topnav_highlight.view_title %} > {{ topnav_highlight.view_title }}{% endif %}
+            <p id="links"> 
+                <a href="mailto:SAXSWAXS@synchrotron.org.au" title="Contact SAXS development team." >Contact</a>
+                &nbsp; | &nbsp; <a href="/admin/" title="Sign into administration interface of SAXS site." >Login</a>
+            </p>
+        </h2>
+        {% endblock header %}
+    </div>
+    <!-- BLOCK/header=END -->
+        
+        
+    <!-- BLOCK/topnav=BEGIN -->
+    <div id="menu">
+        <ul id="topnav" class="dropdown dropdown-horizontal">
+            {% block topnav %}
+            {% get_topnav_html %}
+            {% endblock topnav %}
+        </ul>
+    </div>
+    <!-- BLOCK/topnav=END -->
+        
+        
+    <!-- BLOCK/content=BEGIN -->
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- BLOCK/content=END -->
+    
+    
+    <!-- BLOCK/footer=BEGIN -->
+    <div id="footer">
+        <p>
+        {% block footer %}
+        {% endblock %}
+        </p>
+    </div>
+    <!-- BLOCK/footer=END -->
+
+</div>
+</body>
+</html>

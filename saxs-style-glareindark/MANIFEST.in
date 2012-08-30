@@ -1,0 +1,4 @@
+include media/style/glareindark/css/*
+include media/style/glareindark/img/*
+include saxs_style_glareindark/templates/*
+include saxs_style_glareindark/templatetags/*

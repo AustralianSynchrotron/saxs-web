@@ -1,0 +1,101 @@
+
+html {
+  overflow-y: scroll;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  color: #333333;
+  font-family: "Trebuchet MS", "Arial", "sans-serif";
+  font-size: 11pt;
+}
+
+#header {
+  background: url("../img/header_bg.jpg") no-repeat scroll 0 0 #111111;
+  height: 99px;
+  padding-left: 360px;
+}
+
+#header h1 a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+#header h1 {
+  font-size: 25pt;
+  padding-top: 17px;
+}
+
+#header h2 {
+  color: #EEEEEE;
+  font-size: 16pt;
+}
+
+#header #links a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+#header #links a:hover {
+  color: #5CB3FF;
+  text-decoration: none;
+}
+
+#header #links {
+  color: #AAAAAA;
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+  top: 65px;
+}
+
+#logo {
+  left: 10px;
+  position: absolute;
+  top: 10px;
+}
+
+#menu {
+  background-color: #000000;
+  color:#888888;
+  font-size:12px;
+  font-weight:bold;
+  height:23px;
+  list-style:none outside none;
+  margin-left:0;
+  padding:3px 0;
+  width:100%;
+}
+
+#content {
+  font-family: "Trebuchet MS", "Arial", "sans-serif";
+  font-size: 11px;
+  line-height: 1.6em;
+  padding: 20px 10px;
+}
+
+a, span.external_link {
+  color: #663311;
+  cursor: pointer;
+}
+
+a, span.external_link:hover {
+  text-decoration: underline;
+}
+
+a.bold { 
+  font-weight: bold; 
+}
+
+.clear {
+  clear: both;
+}
+
+.spacer { 
+  height: 10px; 
+  clear: both; 
+}

@@ -1,0 +1,40 @@
+{%  extends "base.html" %}
+
+{% comment %}
+ == Multiple dataTables with different and custom table options using JQuery-UI Tabs ==
+    * Each tab shows a single dataTable.
+    * Each dataTable in different tab can have its own table header and column definition.
+    * Variables: multi_table = [[id, alias], ...]
+{% endcomment %}
+
+{% block css_extra %}
+<style type="text/css">
+    @import "/media/library/js/css/dataTables.css";          
+    @import "/media/library/js/css/dataTables.JUI.css";
+    @import "/media/library/js/css/jquery.ui.1.7.2.custom.css";
+   .ui-tabs .ui-tabs-panel { padding: 10px; }
+</style>
+{% endblock css_extra%}
+
+{% block script_extra %}
+<script type="text/javascript" src="/media/library/js/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/media/library/js/js/jquery.ui.tabs.js"></script>
+<script type="text/javascript" src="/media/library/js/js/jquery.dataTable.reload.js"></script>
+<script type="text/javascript" charset="utf-8">
+{% block more-script %} {% endblock more-script %}
+$(document).ready(function() {
+    {% block more-doc-ready %} {% endblock more-doc-ready %}
+    $("#tabs").tabs( {
+        "show": function(event, ui) {
+            var oTable = $('div.dataTables_scrollBody>table.display', ui.panel).dataTable();
+            if ( oTable.length > 0 ) {
+                oTable.fnAdjustColumnSizing();
+            }
+        }
+    } );
+   
+    {% block table-init %} {% endblock table-init %}
+})
+</script>
+{% endblock script_extra %}
+

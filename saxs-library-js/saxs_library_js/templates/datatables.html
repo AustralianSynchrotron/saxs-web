@@ -1,0 +1,79 @@
+{%  extends "base.html" %}
+
+{% comment %}
+    Requried variables passed from the view which renders this template:
+    1. tabs: 
+       * data type: python list
+       * data structure:
+         tabs = [ ["tab1's unique id", "tab1's title"],
+                  ["tab2's unique id", "tab2's title"],
+                  ["tab3's unique id", "tab3's title"],
+                  ...
+                 ]
+                             
+    2. columns: 
+       * data type: python list
+       * data structure:
+         columns = [ "Column1's Name", 
+                     "Column2's Name", 
+                     "Column3's Name",
+                     ...
+                   ]
+{% endcomment %}
+
+
+{% block css_extra %}
+<style type="text/css">
+    @import "/media/library/js/css/dataTables.css";          
+    @import "/media/library/js/css/dataTables.JUI.css";
+    @import "/media/library/js/css/jquery.ui.1.7.2.custom.css";
+   .ui-tabs .ui-tabs-panel { padding: 10px; }
+</style>
+{% endblock css_extra%}
+
+{% block script_extra %}
+<script type="text/javascript" src="/media/library/js/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/media/library/js/js/jquery.ui.tabs.js"></script>
+<script type="text/javascript" src="/media/library/js/js/jquery.dataTable.reload.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
+    $("#tabs").tabs( {
+        "show": function(event, ui) {
+            var oTable = $('div.dataTables_scrollBody>table.display', ui.panel).dataTable();
+            if ( oTable.length > 0 ) {
+                oTable.fnAdjustColumnSizing();
+            }
+        }
+    } );
+   
+    {% for id, alias in tabs %}
+    var oTable_{{ id }} = $('#table_{{ id }}').dataTable( 
+        { "bJQueryUI": true,
+          "bPaginate": false,
+          "bProcessing": true,
+          "sDom": '<"toolbar_{{ id }}"><"H"lfr>t<"F"ip>',
+          "aoColumns": [ {% for column in columns %}
+              { "sTitle": "{{column}}" }{% if not forloop.last %},{% endif %}{% endfor %} ]
+        });
+    oTable_{{ id }}.fnReloadAjax("json");
+    {% endfor %} 
+})
+</script>
+{% endblock script_extra %}
+
+{% block content %}
+<div id="tabs">
+  <ul>
+    {% for id, alias in tabs %}
+     <li><a href="#tabs_{{ id }}">{{ alias }}</a></li>
+    {% endfor %} 
+  </ul>
+  {% for id, alias in tabs %}
+  <div id="tabs_{{ id }}">
+    <table cellpadding="0" cellspacing="1" border="0" class="display" id="table_{{ id }}">
+    </table>
+  </div>
+  {% endfor %} 
+</div>
+{% endblock content %}

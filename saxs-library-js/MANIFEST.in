@@ -1,0 +1,4 @@
+include media/library/js/css/*
+include media/library/js/img/*
+include media/library/js/js/*
+include saxs_library_js/templates/*

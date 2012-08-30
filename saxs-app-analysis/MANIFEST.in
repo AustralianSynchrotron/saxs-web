@@ -1,0 +1,5 @@
+include media/app/analysis/css/*
+include media/app/analysis/img/*
+include media/app/analysis/js/*
+include saxs_app_analysis/templates/*
+include saxs_app_analysis/templatetags/*
